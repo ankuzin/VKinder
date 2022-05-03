@@ -49,11 +49,9 @@ class VK_USER:
                   'age_to': self.bdate, 'v': V}
         response = requests.get(url=url, params=params)
         link_load = response.json()
-        # print(link_load)
         for link in link_load['response']['items']:
             if link['can_access_closed'] == True:
                 self.id_blacklist.append(link['id'])
-        print(self.id_blacklist)
 
 
     def request_users2(self):  # удаление из поиска пользователей  находяшихся в черном списке
@@ -62,12 +60,9 @@ class VK_USER:
             params = {'access_token': user_token_vk, 'user_ids': id_users, 'fields': 'blacklisted_by_me', 'v': V}
             response = requests.get(url=url, params=params)
             link_load = response.json()
-            # print(link_load)
             for link in link_load['response']:
-                # print(link)
                 if link['blacklisted_by_me'] == 0:
                     self.id_users.append(link['id'])
-        print(self.id_users)
 
 
     def users_foto_vk(self):  # получение топ-3 фотографий найденых пользователей
